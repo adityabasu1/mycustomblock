@@ -1,0 +1,45 @@
+.flip-deck {              /* grid container */
+    display: grid;
+    gap: var(--spacing-m);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    perspective: 1000px;    /* enables 3-D flip */
+  }
+  
+  .flip-deck .card {
+    position: relative;
+    width: 100%;  aspect-ratio: 3 / 4;
+    transform-style: preserve-3d;
+    transition: transform .6s ease;
+    cursor: pointer;
+  }
+  
+  .flip-deck .card:hover,
+  .flip-deck .card:focus-within,
+  .flip-deck .card.flipped {        /* JS adds .flipped on tap */
+    transform: rotateY(180deg);
+  }
+  
+  /* Sides */
+  .flip-deck .side {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgb(0 0 0 /.25);
+  }
+  
+  .flip-deck .front { background: #fff; }
+  .flip-deck .front img { width: 100%; height: 100%; object-fit: cover; }
+  
+  .flip-deck .back {
+    background: var(--brand-100, #004b76);
+    color: #fff;
+    transform: rotateY(180deg);
+    padding: 1rem .75rem;
+    display: flex; flex-direction: column; justify-content: center;
+    text-align: center;
+  }
+  
+  .back h3   { margin: .25rem 0 0; font-size: 1.1rem; }
+  .back p    { margin: .25rem 0 0; font-size: .9rem; line-height: 1.3; }
+  
