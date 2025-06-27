@@ -1,26 +1,49 @@
-/* /blocks/orbit-coaster/orbit-coaster.js
-   Two-column version: 1 = image, 2 = alt-text
-   Header row (merged) must contain "orbit-coaster". */
+/* Orbit-Coaster decorator v2
+   –  header row (merged) must contain "orbit-coaster"
+   –  each data row must have at least ONE cell (image). Second cell = alt-text (optional)
+*/
+
+console.log('Orbit-Coaster decorator loaded 🚀');
 
 export default function decorate(block) {
-  // Skip header (row 0)
-  const rows = [...block.querySelectorAll('tr')].slice(1);
-  const n    = rows.length;
-  const dur  = 20;                       // seconds per full revolution
+  /* 1. Collect rows */
+  const allRows = [...block.querySelectorAll('tr')];
+  if (!allRows.length) {
+    console.warn('orbit-coaster: no <tr> found inside block');
+    return;
+  }
 
-  // Replace table with orbit container
-  block.innerHTML = '';
-  block.classList.add('orbit-coaster');
+  /* Remove the header row (row 0) and filter out accidental blank rows */
+  const rows = allRows.slice(1).filter((r) => r.cells.length);
+  console.log('orbit-coaster: rows.length =', rows.length);
 
+  if (!rows.length) {
+    console.warn('orbit-coaster: header found but no data rows — check your table.');
+    return;
+  }
+
+  /* 2. Prepare container */
+  const n   = rows.length;
+  const dur = 20;                          // seconds per revolution
+  block.innerHTML = '';                    // wipe the raw table
+  block.classList.add('orbit-coaster');    // required by CSS
+
+  /* 3. Build orbit items */
   rows.forEach((row, i) => {
-    const [imgCell, altCell] = row.cells;
+    const [imgCell, altCell] = row.cells;  // altCell may be undefined
 
-    // Works for inline <img> or text path
-    const imgTag = imgCell.querySelector('img');
+    /* Accept inline <img> or a plain text path */
+    const imgTag = imgCell?.querySelector('img');
     const src    = imgTag ? imgTag.src : imgCell.textContent.trim();
-    const alt    = (altCell?.textContent || '').trim();
 
-    // Even spacing + opposite directions
+    if (!src) {
+      console.warn(`orbit-coaster: row ${i + 1} has no image source — skipping`);
+      return;
+    }
+
+    const alt = (altCell?.textContent || '').trim();
+
+    /* Equal spacing + opposite spin directions */
     const angle = (360 / n) * i;
     const delay = -(dur / 360) * angle;
 
