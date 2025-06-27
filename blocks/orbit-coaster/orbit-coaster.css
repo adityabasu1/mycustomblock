@@ -1,0 +1,38 @@
+/* Orbit-Coaster block */
+.orbit-coaster {
+    position: relative;
+    width: clamp(16rem, 75vw, 28rem);   /* responsive outer box */
+    aspect-ratio: 1;                    /* perfect square */
+    margin: 2.5rem auto;
+    --radius: 45%;                      /* distance from centre */
+  }
+  
+  .oc-item {                    /* absolutely centred, will be offset later */
+    position: absolute;
+    top: 50%;  left: 50%;
+    width: 6rem;  aspect-ratio: 1;
+    transform-origin: center;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  
+  .oc-item img {
+    width: 100%;  height: 100%;
+    object-fit: cover;
+    border-radius: .75rem;
+    box-shadow: 0 4px 8px #0003;
+  }
+  
+  /* Clockwise vs anticlockwise */
+  .oc-item.even { animation-name: oc-spin-cw; }
+  .oc-item.odd  { animation-name: oc-spin-ccw; }
+  
+  @keyframes oc-spin-cw {
+    from { transform: rotate(var(--start,0deg)) translate(var(--radius)) rotate(calc(-1 * var(--start,0deg))); }
+    to   { transform: rotate(calc(360deg + var(--start,0deg))) translate(var(--radius)) rotate(calc(-360deg - var(--start,0deg))); }
+  }
+  @keyframes oc-spin-ccw {
+    from { transform: rotate(var(--start,0deg)) translate(var(--radius)) rotate(calc(-1 * var(--start,0deg))); }
+    to   { transform: rotate(calc(-360deg + var(--start,0deg))) translate(var(--radius)) rotate(calc( 360deg - var(--start,0deg))); }
+  }
+  
