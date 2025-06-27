@@ -1,6 +1,6 @@
 /* blocks/linkedin-coloured-cards/linkedin-coloured-cards.js */
 
-/* --- tiny helper to load the CSS if lib-franklin isn't present --- */
+/* Inject CSS manually if lib-franklin is not present */
 function ensureCSS() {
   const href = `${window.hlx.codeBasePath}/blocks/linkedin-coloured-cards/linkedin-coloured-cards.css`;
   if (!document.head.querySelector(`link[href="${href}"]`)) {
@@ -10,11 +10,10 @@ function ensureCSS() {
     document.head.append(link);
   }
 }
-ensureCSS();                     // ← actually inject the <link>
+ensureCSS();
 
-/* ----------------------------------------------------------------- */
 export default function decorate(block) {
-  const rows = [...block.querySelectorAll(':scope > div')].slice(1); // skip header
+  const rows = [...block.querySelectorAll(':scope > div')].slice(1); // Skip header row
 
   rows.forEach((row, idx) => {
     const [imgCell, nameCell, urlCell] = row.children;
@@ -23,7 +22,6 @@ export default function decorate(block) {
     const name = nameCell.textContent.trim();
     const url  = (urlCell.querySelector('a') || urlCell).textContent.trim();
 
-    /* build card */
     const card = document.createElement('div');
     card.className = 'card';
     if (img) card.append(img);
