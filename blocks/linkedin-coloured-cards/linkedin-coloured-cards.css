@@ -1,0 +1,49 @@
+/* blocks/linkedin-cards/linkedin-cards.css */
+
+/* Teal call-out wrapper */
+.linkedin-cards {
+    margin: 2rem 0;
+    padding: 2rem;
+    background: #c9ecef;        /* light teal */
+    border: 4px solid #229ca0;  /* darker teal */
+    border-radius: 8px;
+    display: grid;
+    gap: 1.5rem;                /* space between cards */
+  }
+  
+  /* Card layout */
+  .linkedin-cards .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Avatar image */
+  .linkedin-cards .card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    align-self: center;
+  }
+  
+  /* Button styling */
+  .linkedin-cards .btn {
+    display: inline-block;
+    padding: .75rem 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 24px;
+    text-decoration: none;
+    transition: opacity .2s ease;
+  }
+  .linkedin-cards .btn:hover { opacity: .85; }
+  
+  .linkedin-cards .btn.blue   { background: #0072c6; }  /* odd cards  */
+  .linkedin-cards .btn.orange { background: #f7931e; }  /* even cards */
+  
